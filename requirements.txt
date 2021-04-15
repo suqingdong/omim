@@ -1,0 +1,5 @@
+click
+requests
+webrequests
+simple-loggers
+python-dateutil
