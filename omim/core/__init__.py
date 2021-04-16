@@ -1,5 +1,7 @@
 import os
 
+from dateutil.parser import parse as date_parse
+
 from webrequests import WebRequest as WR
 from simple_loggers import SimpleLogger
 
@@ -36,9 +38,8 @@ class OMIM(object):
         for line in text.split('\n'):
             if line.startswith('# Generated:'):
                 generated = line.split(': ')[-1]
-                print('generated:', generated)
                 continue
-            elif line.startswith('#'):
+            elif line.startswith('#') or not line.strip():
                 continue
             linelist = line.split('\t')
             context = dict(zip(fields, linelist))
@@ -46,7 +47,8 @@ class OMIM(object):
             if mim_types and context['mim_type'] not in mim_types:
                 continue
 
-            yield context
+            context['generated'] = date_parse(generated)
+            yield context['mim_number'], context
 
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ class Entry(OMIM):
 
     def parse(self, mim):
         data = defaultdict(list)
-        data['mim'] = mim
+        data['mim_number'] = mim
 
         url = self.omim_url + f'/{mim}'
         soup = self.get_soup(url)
@@ -26,7 +26,7 @@ class Entry(OMIM):
 
         if ref:
             references = re.findall(r'PubMed: (\d+)', ref.text)
-            data['references'] = references
+            data['references'] = ', '.join(references)
 
 
         for xmap in ('phenotypeMap', 'geneMap'):
