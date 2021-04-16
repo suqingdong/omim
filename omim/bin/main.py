@@ -17,7 +17,7 @@ from omim.db import OMIM_DATA, Manager
 
 @click.group(name='omim', no_args_is_help=True,
              help=click.style(version_info['desc'], fg='green', bold=True))
-@click.option('-d', '--database',
+@click.option('-d', '--dbfile',
               help='the path of database file', default=DEFAULT_DB, show_default=True)
 @click.option('-u', '--url',
               help='the url of omim', default=DEFAULT_URL, show_default=True)
@@ -33,6 +33,7 @@ def cli(ctx, **kwargs):
     ctx.obj.update(kwargs)
     ctx.obj['manager'] = Manager(dbfile=dbfile)
     ctx.obj['logger'] = SimpleLogger('OMIM-CLI')
+    ctx.obj['entry'] = Entry(omim_url=kwargs['url'])
 
 
 @cli.command()

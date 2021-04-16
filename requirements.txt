@@ -1,5 +1,6 @@
 click
 requests
 webrequests
+prettytable
 simple-loggers
 python-dateutil

@@ -15,15 +15,15 @@ class Manager(object):
             - sqlite:///:memory:
     """
     def __init__(self, dbfile=':memory:', echo=True, drop=False, logger=None):
+        self.drop = drop
         self.uri = f'sqlite:///{dbfile}'
         self.logger = logger or SimpleLogger('Manager')
         self.engine = sqlalchemy.create_engine(self.uri, echo=echo)
         self.engine.logger.level = self.logger.level
-
         self.session = self.connect()
-        self.create_table(drop=drop)
     
     def __enter__(self):
+        self.create_table(drop=self.drop)
         return self
 
     def __exit__(self, *exc_info):
@@ -32,10 +32,8 @@ class Manager(object):
         self.logger.debug('database closed.')
 
     def connect(self):
-        self.logger.debug('connecting to: {}'.format(self.uri))
         DBSession = sessionmaker(bind=self.engine)
-        session = DBSession()
-        return session
+        return DBSession()
 
     def create_table(self, drop=False):
         if drop:
