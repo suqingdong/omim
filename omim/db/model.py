@@ -41,4 +41,3 @@ class OMIM_DATA(Base):
 
     __repr__ = __str__
 
-

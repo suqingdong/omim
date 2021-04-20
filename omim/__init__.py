@@ -14,3 +14,5 @@ if not os.path.isfile(DEFAULT_DB):
     DEFAULT_DB = os.path.join(HOME, 'omim_data', 'omim.sqlite3')
 
 DEFAULT_URL = 'https://mirror.omim.org'
+
+MIM_TYPES = ['gene', 'gene/phenotype', 'phenotype', 'predominantly phenotypes', 'moved/removed']

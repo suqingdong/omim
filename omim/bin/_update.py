@@ -4,12 +4,11 @@ import random
 
 import click
 
-from omim.db import OMIM_DATA, Manager
+from omim import MIM_TYPES
+from omim.db import OMIM_DATA
 
 
-MIM_TYPES = ['gene', 'gene/phenotype', 'moved/removed', 'phenotype', 'predominantly phenotypes']
-
-@click.command(name='update')
+@click.command(name='update', help=click.style('update the database', fg='green'))
 @click.option('-t', '--mim-types', help='the types of mim crawl',
               type=click.Choice(MIM_TYPES), show_choices=True, multiple=True)
 @click.pass_context
@@ -33,7 +32,7 @@ def main(ctx, **kwargs):
                 if context['mim_type'] == 'moved/removed':
                     manager.delete(OMIM_DATA, 'mim_number', mim)
                 else:
-                    click.secho(f'*** skip: {mim}', fg='yellow')
+                    click.secho(f'*** skip mim_number: {mim}', fg='yellow')
                 continue
 
             data = entry.parse(mim)
