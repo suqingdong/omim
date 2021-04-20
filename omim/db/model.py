@@ -34,10 +34,9 @@ class OMIM_DATA(Base):
 
     @property
     def as_dict(self):
-        return {k:v for k,v in self.__dict__.items() if not isinstance(v, InstanceState)}
+        return {k: v for k, v in self.__dict__.items() if not isinstance(v, InstanceState)}
 
     def __str__(self):
         return '[{mim_number} - {title}]'.format(**self.__dict__)
 
     __repr__ = __str__
-

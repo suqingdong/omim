@@ -34,7 +34,7 @@ class Entry(OMIM):
             if res:
                 table = res.parent.select_one('table')
                 keys = [th.text.strip() for th in table.select('thead th')]
-                keys = [' '.join(key.split()) for key in keys]
+                keys = [' '.join(key.split()).replace(' Clinical Synopses', '') for key in keys]
                 for tr in table.select('tbody tr'):
                     row = [td.text.strip() for td in tr.select('td')]
                     if len(row) == len(keys):
@@ -52,7 +52,8 @@ if __name__ == '__main__':
     entry = Entry()
 
     # *
-    data = entry.parse('612367')    # one geneMap
+    # data = entry.parse('612367')    # one geneMap
+    data = entry.parse('607093')    # one geneMap
     # data = entry.parse('300050')    # no geneMap
     # data = entry.parse('109690')    # multiple geneMap
 

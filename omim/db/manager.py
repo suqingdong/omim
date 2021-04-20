@@ -14,8 +14,9 @@ class Manager(object):
             - sqlite:////absolute/path/to/db
             - sqlite:///:memory:
     """
-    def __init__(self, dbfile=':memory:', echo=True, drop=False, logger=None):
+    def __init__(self, dbfile=':memory:', echo=False, drop=False, logger=None):
         self.drop = drop
+        self.dbfile = dbfile
         self.uri = f'sqlite:///{dbfile}'
         self.logger = logger or SimpleLogger('Manager')
         self.engine = sqlalchemy.create_engine(self.uri, echo=echo)

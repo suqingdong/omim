@@ -1,7 +1,10 @@
+import sys
+import json
+import datetime
+
 import click
 import prettytable
 
-from omim import MIM_TYPES
 from omim.db import OMIM_DATA
 
 
@@ -9,6 +12,7 @@ from omim.db import OMIM_DATA
 @click.option('-K', '--keys', help='list the available keys', is_flag=True)
 @click.option('-s', '--search', help='the search string', multiple=True, nargs=2)
 @click.option('-l', '--limit', help='limit for output', type=int)
+@click.option('-F', '--format', help='the format for output', type=click.Choice(['json', 'tsv']))
 @click.option('-o', '--outfile', help='the output filename [stdout]')
 @click.pass_context
 def main(ctx, **kwargs):
@@ -17,6 +21,7 @@ def main(ctx, **kwargs):
     
     limit = kwargs['limit']
     search = kwargs['search']
+    out = open(kwargs['outfile'], 'w') if kwargs['outfile'] else sys.stdout
 
     logger.debug(f'input arguments: {kwargs}')
 
@@ -45,13 +50,33 @@ def main(ctx, **kwargs):
         if limit:
             query = query.limit(limit)
 
-        # logger.debug(str(query))
-
     if not query.count():
-        logger.warning('no result for your input!')
+        logger.warning(f'no result for your input! [{search}]')
     else:
-        for each in query.all():
-            print(each.as_dict)
+        with out:
+            if kwargs['format'] == 'json':
+                data = []
+                for each in query.all():
+                    context = {}
+                    for k, v in each.as_dict.items():
+                        if v:
+                            if k in ('geneMap', 'phenotypeMap'):
+                                v = json.loads(v)
+                            elif k == 'generated':
+                                v = v.strftime('%Y-%m-%d')
+                        context[k] = v
+                    data.append(context)
+                out.write(json.dumps(data, indent=2) + '\n')
+            else:
+                for n, each in enumerate(query.all()):
+                    context = each.as_dict
+                    if n == 0:
+                        title = '\t'.join(context.keys())
+                        out.write(title + '\n')
+                    line = '\t'.join([
+                        v.strftime('%Y-%m-%d') if isinstance(v, datetime.datetime) else str(v)
+                        for v in context.values()])
+                    out.write(line + '\n')
 
 
 if __name__ == '__main__':
