@@ -29,6 +29,7 @@ Commands:
 
 ### stats
 > OMIM Entry Statistics
+
 `omim stats`
 ```
 ***** updated time: 2021-04-20 *****
@@ -46,12 +47,14 @@ Commands:
 
 ### update
 > update the database according to the file mim2gene.txt
+
 ```
 omim update
 ```
 
 ### faq
 > explains of some FAQ
+
 `omim faq`
 ```
 ***** Explains of MIM PREFIX *****
