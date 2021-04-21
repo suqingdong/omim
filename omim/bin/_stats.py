@@ -6,13 +6,10 @@ from omim import MIM_TYPES
 from omim.db import OMIM_DATA
 
 
-@click.command(name='stats', help=click.style('statistics the database', fg='green'))
+@click.command(name='stats', help=click.style('statistics of the database', fg='green'))
 @click.pass_context
 def main(ctx, **kwargs):
-    logger = ctx.obj['logger']
     manager = ctx.obj['manager']
-    
-    logger.debug(f'input arguments: {kwargs}')
 
     with manager:
 
