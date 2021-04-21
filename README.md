@@ -25,10 +25,10 @@ Commands:
   query   query something from the database
   stats   statistics of the database
   update  update the database
-
 ```
 
 ### stats
+> OMIM Entry Statistics
 `omim stats`
 ```
 ***** updated time: 2021-04-20 *****
@@ -45,18 +45,43 @@ Commands:
 ```
 
 ### update
-> update the database according to the 
+> update the database according to the file mim2gene.txt
 ```
 omim update
 ```
 
 ### faq
-> Explain of some FAQ
-```bash
-omim faq
+> explains of some FAQ
+`omim faq`
+```
+***** Explains of MIM PREFIX *****
++--------+---------------------------------------------------------+
+| PREFIX | EXPLAIN                                                 |
++--------+---------------------------------------------------------+
+|   *    | Gene description                                        |
+|   +    | Gene and phenotype, combined                            |
+|   #    | Phenotype description, molecular basis known            |
+|   %    | Phenotype description or locus, molecular basis unknown |
+|        | Other, mainly phenotypes with suspected mendelian basis |
+|   ^    | Moved/Removed                                           |
++--------+---------------------------------------------------------+
+***** Explains of PHENOTYPE SYMBOL *****
++--------+------------------------------------------------------------------------------------------------------------------------------+
+| SYMBOL | EXPLAIN                                                                                                                      |
++--------+------------------------------------------------------------------------------------------------------------------------------+
+|  [ ]   | indicate "nondiseases," mainly genetic variations that lead to apparently abnormal laboratory test values                    |
+|  { }   | indicate mutations that contribute to susceptibility to multifactorial disorders                                             |
+|        | (e.g., diabetes, asthma) or to susceptibility to infection                                                                   |
+|   ?    | before the phenotype name indicates that the relationship between the phenotype and gene is provisional.                     |
+|        | More details about this relationship are provided in the comment field of the map and in the gene and phenotype OMIM entries |
+|  (1)   | the disorder was positioned by mapping of the wildtype gene                                                                  |
+|  (2)   | the disease phenotype itself was mapped                                                                                      |
+|  (3)   | the molecular basis of the disorder is known                                                                                 |
+|  (4)   | the disorder is a chromosome deletion or duplication syndrome                                                                |
++--------+------------------------------------------------------------------------------------------------------------------------------+
 ```
 
-### query
+### **query**
 `omim query -h`
 ```
 Usage: omim query [OPTIONS]
