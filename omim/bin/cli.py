@@ -1,20 +1,16 @@
 import os
 
 import click
-from click.termui import hidden_prompt_func
-
 from simple_loggers import SimpleLogger
 
 from omim import version_info, DEFAULT_DB, DEFAULT_URL
-from omim.core import OMIM
 from omim.core.entry import Entry
-from omim.core.update import Update
-
-from omim.db import OMIM_DATA, Manager
+from omim.db import Manager
 
 from ._update import main as update_cli
 from ._query import main as query_cli
 from ._stats import main as stats_cli
+from ._faq import main as faq_cli
 
 
 CONTEXT_SETTINGS = dict(help_option_names=['-?', '-h', '--help'])
@@ -46,6 +42,7 @@ def main():
     cli.add_command(update_cli)
     cli.add_command(query_cli)
     cli.add_command(stats_cli)
+    cli.add_command(faq_cli)
     cli()
 
 

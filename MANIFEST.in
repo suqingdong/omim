@@ -1,2 +1,3 @@
 include requirements.txt
+include omim/version/version.json
 recursive-include  omim/data/*.*
