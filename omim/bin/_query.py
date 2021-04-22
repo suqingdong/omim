@@ -3,8 +3,8 @@ import json
 import datetime
 
 import click
-import prettytable
 
+from omim import util
 from omim.db import OMIM_DATA
 
 
@@ -26,11 +26,7 @@ def main(ctx, **kwargs):
     logger.debug(f'input arguments: {kwargs}')
 
     if kwargs['keys']:
-        table = prettytable.PrettyTable(['Key', 'Comment', 'Type'])
-        for k, v in OMIM_DATA.metadata.tables['omim'].columns.items():
-            table.add_row([k, v.comment, v.type])
-        for field in table._field_names:
-            table.align[field] = 'l'
+        table = util.get_columns_table()
         print(click.style(str(table), fg='cyan'))
         exit(0)
 

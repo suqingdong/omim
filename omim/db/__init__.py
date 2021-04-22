@@ -1,2 +1,2 @@
-from .model import OMIM_DATA
+from .model import OMIM_DATA, OMIM_DATA_COLUMNS
 from .manager import Manager

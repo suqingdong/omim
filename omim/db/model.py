@@ -40,3 +40,6 @@ class OMIM_DATA(Base):
         return '[{mim_number} - {title}]'.format(**self.__dict__)
 
     __repr__ = __str__
+
+
+OMIM_DATA_COLUMNS = dict(OMIM_DATA.metadata.tables['omim'].columns)
