@@ -357,10 +357,20 @@ None	16429403, 10051328, 17425602, 18548003, 10903931, 21920918, 12571257, 32911
 ## Use omim in Python
 ```python
 import omim
-
+from omim import util
 from omim.db import Manager, OMIM_DATA
 
+
 manager = Manager(dbfile=omim.DEFAULT_DB)
+
+# show columns
+print(util.get_columns_table())
+
+
+# show stats
+generated, table = util.get_stats_table(manager)
+print(generated)
+print(table)
 
 # count the database
 manager.query(OMIM_DATA).count()
