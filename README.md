@@ -353,3 +353,29 @@ None	16429403, 10051328, 17425602, 18548003, 10903931, 21920918, 12571257, 32911
   }
 ]
 ```
+
+## Use omim in Python
+```python
+import omim
+
+from omim.db import Manager, OMIM_DATA
+
+manager = Manager(dbfile=omim.DEFAULT_DB)
+
+# count the database
+manager.query(OMIM_DATA).count()
+
+# query with key-value
+res = manager.query(OMIM_DATA, 'prefix', '*')
+res = manager.query(OMIM_DATA, 'mim_number', '600799')
+res = manager.query(OMIM_DATA, 'hgnc_gene_symbol', 'BMPR2')
+res = manager.query(OMIM_DATA, 'geneMap', '%Pulmonary hypertension%')  # fuzzy query
+
+# fetch query result
+item = res.first()
+items = res.all()
+
+# content of result
+print(item.mim_number, item.title)
+print(item.as_dict)
+```
