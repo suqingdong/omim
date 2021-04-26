@@ -1,4 +1,5 @@
 click
+pygments
 requests
 webrequests
 prettytable

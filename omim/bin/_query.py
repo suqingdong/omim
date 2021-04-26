@@ -3,17 +3,32 @@ import json
 import datetime
 
 import click
+from pygments import highlight, lexers, formatters
 
 from omim import util
 from omim.db import OMIM_DATA
 
 
-@click.command(name='query', help=click.style('query something from database', fg='green'))
+__epilog__ = click.style('''
+
+\b
+examples:
+    omim query -K
+    omim query -s hgnc_gene_symbol BMPR2
+    omim query -s mim_number 600799
+    omim query -s mim_number 600799
+    omim query -s geneMap '%Pulmonary hypertension%' -F json -C
+''', fg='yellow')
+
+@click.command(name='query',
+               help=click.style('query something from database', fg='green'),
+               epilog=__epilog__)
 @click.option('-K', '--keys', help='list the available keys', is_flag=True)
 @click.option('-s', '--search', help='the search string', multiple=True, nargs=2)
 @click.option('-l', '--limit', help='limit for output', type=int)
 @click.option('-F', '--format', help='the format for output', type=click.Choice(['json', 'tsv']))
 @click.option('-o', '--outfile', help='the output filename [stdout]')
+@click.option('-C', '--color', help='colorful print for json', is_flag=True)
 @click.pass_context
 def main(ctx, **kwargs):
     logger = ctx.obj['logger']
@@ -62,7 +77,11 @@ def main(ctx, **kwargs):
                                 v = v.strftime('%Y-%m-%d')
                         context[k] = v
                     data.append(context)
-                out.write(json.dumps(data, indent=2) + '\n')
+                
+                data = json.dumps(data, indent=2)
+                if kwargs['color']:
+                    data = highlight(data, lexers.JsonLexer(), formatters.TerminalFormatter())
+                out.write(data + '\n')
             else:
                 for n, each in enumerate(query.all()):
                     context = each.as_dict
