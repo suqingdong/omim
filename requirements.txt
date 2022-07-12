@@ -5,3 +5,4 @@ webrequests
 prettytable
 simple-loggers
 python-dateutil
+sqlalchemy
