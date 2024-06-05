@@ -1,9 +1,8 @@
 # OMIM - Online Mendelian Inheritance in Man
 
-
 ## Installation
 ```bash
-pip3 install omim
+python3 -m pip install -U omim
 ```
 
 ## Basic Usage
@@ -46,7 +45,10 @@ Commands:
 ```
 
 ### update
+
 > update the database according to the file mim2gene.txt
+
+> *The method uses web scraping technology, which may lead to IP blocking. Please use it with caution and consider using proxy IPs.*
 
 ```
 omim update
