@@ -13,7 +13,7 @@ class Entry(OMIM):
         data = defaultdict(list)
         data['mim_number'] = mim
 
-        url = self.omim_url + f'/{mim}'
+        url = self.omim_url + f'/entry/{mim}'
         soup = self.get_soup(url)
 
         prefix = soup.select_one('#title').find_next_sibling('div').select_one('.h3 strong')
