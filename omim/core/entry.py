@@ -1,4 +1,5 @@
 import re
+import time
 from collections import defaultdict
 
 from omim.core import OMIM
@@ -14,9 +15,16 @@ class Entry(OMIM):
         data['mim_number'] = mim
 
         url = self.omim_url + f'/entry/{mim}'
-        soup = self.get_soup(url)
 
-        prefix = soup.select_one('#title').find_next_sibling('div').select_one('.h3 strong')
+        while True:
+            try:
+                soup = self.get_soup(url)
+                prefix = soup.select_one('#title').find_next_sibling('div').select_one('.h3 strong')
+                break
+            except AttributeError:
+                time.sleep(3)
+                self.logger.warning(f'Retrying: {url}')
+
         prefix = prefix.text if prefix else ''
         data['prefix'] = prefix
 
