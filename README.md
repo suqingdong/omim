@@ -1,3 +1,9 @@
+![PyPI - Version](https://img.shields.io/pypi/v/omim)
+![PyPI - Status](https://img.shields.io/pypi/status/omim)
+![Pepy Total Downlods](https://img.shields.io/pepy/dt/omim)
+![PyPI - License](https://img.shields.io/pypi/l/omim)
+
+
 # OMIM - Online Mendelian Inheritance in Man
 
 ## Installation
