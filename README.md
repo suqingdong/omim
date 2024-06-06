@@ -31,16 +31,16 @@ Commands:
 
 `omim stats`
 ```
-***** updated time: 2021-04-20 *****
+***** updated time: 2024-06-04 *****
 +--------------------------+-------+
 | MIM_TYPE                 | COUNT |
 +--------------------------+-------+
-| gene                     | 16458 |
-| gene/phenotype           | 27    |
-| phenotype                | 7578  |
-| predominantly phenotypes | 1762  |
-| moved/removed            | 1317  |
-| TOTAL COUNT              | 27142 |
+| gene                     | 17290 |
+| gene/phenotype           | 18    |
+| phenotype                | 8362  |
+| predominantly phenotypes | 1736  |
+| moved/removed            | 1364  |
+| TOTAL COUNT              | 28770 |
 +--------------------------+-------+
 ```
 
@@ -48,7 +48,7 @@ Commands:
 
 > update the database according to the file mim2gene.txt
 
-> *The method uses web scraping technology, which may lead to IP blocking. Please use it with caution and consider using proxy IPs.*
+> *The method uses web scraping technology, which may lead to IP blocking. Please use it with caution or consider using proxy IPs.*
 
 ```
 omim update
