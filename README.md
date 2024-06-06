@@ -3,6 +3,7 @@
 ![Pepy Total Downlods](https://img.shields.io/pepy/dt/omim)
 ![PyPI - License](https://img.shields.io/pypi/l/omim)
 
+---
 
 # OMIM - Online Mendelian Inheritance in Man
 
@@ -10,6 +11,8 @@
 ```bash
 python3 -m pip install -U omim
 ```
+
+---
 
 ## Basic Usage
 ### main
@@ -362,18 +365,18 @@ None	16429403, 10051328, 17425602, 18548003, 10903931, 21920918, 12571257, 32911
 ]
 ```
 
+---
+
 ## Use omim in Python
 ```python
 import omim
 from omim import util
 from omim.db import Manager, OMIM_DATA
 
-
 manager = Manager(dbfile=omim.DEFAULT_DB)
 
 # show columns
 print(util.get_columns_table())
-
 
 # show stats
 generated, table = util.get_stats_table(manager)
