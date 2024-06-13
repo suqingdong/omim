@@ -35,7 +35,7 @@ Commands:
   update  update the database
 ```
 
-### stats
+### 1. stats
 > OMIM Entry Statistics
 
 `omim stats`
@@ -53,7 +53,7 @@ Commands:
 +--------------------------+-------+
 ```
 
-### update
+### 2. update
 
 > update the database according to the file mim2gene.txt
 
@@ -63,7 +63,7 @@ Commands:
 omim update
 ```
 
-### faq
+### 3. faq
 > explains of some FAQ
 
 `omim faq`
@@ -95,7 +95,7 @@ omim update
 +--------+------------------------------------------------------------------------------------------------------------------------------+
 ```
 
-### **query**
+### 4. **query**
 `omim query -h`
 ```
 Usage: omim query [OPTIONS]
@@ -108,10 +108,15 @@ Options:
   -l, --limit INTEGER      limit for output
   -F, --format [json|tsv]  the format for output
   -o, --outfile TEXT       the output filename [stdout]
-  -?, -h, --help           Show this message and exit.
+  -C, --color              colorful print for json
+  -f, --fuzzy              fuzzy search
+  --count                  count the number of results
+  -h, -?, --help           Show this message and exit.
 ```
 
-`omim query -K`
+- show all available keys
+
+`omim query -K` 
 ```
 +------------------+-----------------------+--------------+
 | Key              | Comment               | Type         |
@@ -130,13 +135,27 @@ Options:
 +------------------+-----------------------+--------------+
 ```
 
+- search with a key
+
 `omim query -s hgnc_gene_symbol BMPR2`
+
+<details>
+
+
 ```
 phenotypeMap	references	prefix	mim_number	generated	ensembl_gene_id	mim_type	geneMap	title	hgnc_gene_symbol	entrez_gene_id
 None	16429403, 10051328, 17425602, 18548003, 10903931, 21920918, 12571257, 3291115, 12358323, 10973254, 16429395, 11115378, 14583445, 18626305, 18321866, 11484688, 18496036, 18792970, 7644468, 12045205, 12446270, 15965979, 24446489, 11015450, 19620182	*	600799	2021-04-14	ENSG00000204217	gene	[{"Location": "2q33.1-q33.2", "Phenotype": "Pulmonary hypertension, familial primary, 1, with or without HHT", "Phenotype MIM number": "178600", "Inheritance": "AD", "Phenotype mapping key": "3"}, {"Location": "2q33.1-q33.2", "Phenotype": "Pulmonary hypertension, primary, fenfluramine or dexfenfluramine-associated", "Phenotype MIM number": "178600", "Inheritance": "AD", "Phenotype mapping key": "3"}, {"Location": "2q33.1-q33.2", "Phenotype": "Pulmonary venoocclusive disease 1", "Phenotype MIM number": "265450", "Inheritance": "AD", "Phenotype mapping key": "3"}]	BONE MORPHOGENETIC PROTEIN RECEPTOR, TYPE II; BMPR2	BMPR2	659
 ```
 
-`omim query -s hgnc_gene_symbol BMPR2 -F json`
+</details>
+
+
+- search with a key and output as json
+
+`omim query -s hgnc_gene_symbol BMPR2 -F json -C`
+
+<details>
+
 ```json
 [
   {
@@ -177,7 +196,14 @@ None	16429403, 10051328, 17425602, 18548003, 10903931, 21920918, 12571257, 32911
 ]
 ```
 
-`omim query -s geneMap '%Pulmonary hypertension%' -F json`
+</details>
+
+- fuzzy search
+
+`omim query -s geneMap '%Pulmonary hypertension%' --fuzzy -F json -C`
+
+<details>
+
 ```json
 [
   {
@@ -365,6 +391,8 @@ None	16429403, 10051328, 17425602, 18548003, 10903931, 21920918, 12571257, 32911
 ]
 ```
 
+</details>
+
 ---
 
 ## Use omim in Python
@@ -390,7 +418,7 @@ manager.query(OMIM_DATA).count()
 res = manager.query(OMIM_DATA, 'prefix', '*')
 res = manager.query(OMIM_DATA, 'mim_number', '600799')
 res = manager.query(OMIM_DATA, 'hgnc_gene_symbol', 'BMPR2')
-res = manager.query(OMIM_DATA, 'geneMap', '%Pulmonary hypertension%')  # fuzzy query
+res = manager.query(OMIM_DATA, 'geneMap', '%Pulmonary hypertension%', fuzzy=True)  # fuzzy query
 
 # fetch query result
 item = res.first()
@@ -400,3 +428,9 @@ items = res.all()
 print(item.mim_number, item.title)
 print(item.as_dict)
 ```
+
+---
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=suqingdong/pypubmed&type=Date)](https://star-history.com/#suqingdong/omim&Date)

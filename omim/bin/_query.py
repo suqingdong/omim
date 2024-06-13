@@ -29,6 +29,8 @@ examples:
 @click.option('-F', '--format', help='the format for output', type=click.Choice(['json', 'tsv']))
 @click.option('-o', '--outfile', help='the output filename [stdout]')
 @click.option('-C', '--color', help='colorful print for json', is_flag=True)
+@click.option('-f', '--fuzzy', help='fuzzy search', is_flag=True)
+@click.option('--count', help='count the number of results', is_flag=True)
 @click.pass_context
 def main(ctx, **kwargs):
     logger = ctx.obj['logger']
@@ -36,6 +38,7 @@ def main(ctx, **kwargs):
     
     limit = kwargs['limit']
     search = kwargs['search']
+    fuzzy = kwargs['fuzzy']
     out = open(kwargs['outfile'], 'w') if kwargs['outfile'] else sys.stdout
 
     logger.debug(f'input arguments: {kwargs}')
@@ -53,10 +56,18 @@ def main(ctx, **kwargs):
         query = manager.session.query(OMIM_DATA)
 
         for key, value in search:
-            if '%' in value:
+            if key not in OMIM_DATA.__dict__:
+                logger.error(f'invalid key: {key}')
+                exit(1)
+            
+            if fuzzy:
                 query = query.filter(OMIM_DATA.__dict__[key].like(value))
             else:
                 query = query.filter(OMIM_DATA.__dict__[key] == value)
+
+        if kwargs['count']:
+            logger.info(f'{query.count()} results found for your input!')
+            exit(0)
 
         if limit:
             query = query.limit(limit)

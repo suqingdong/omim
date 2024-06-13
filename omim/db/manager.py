@@ -41,14 +41,17 @@ class Manager(object):
             Base.metadata.drop_all(self.engine)
         Base.metadata.create_all(self.engine)
 
-    def query(self, Meta, key=None, value=None):
+    def query(self, Meta, key=None, value=None, fuzzy=False):
         query = self.session.query(Meta)
         if key:
             if key not in Meta.__dict__:
                 self.logger.warning(f'unavailable key: {key}')
                 return None
+
+            if fuzzy:
+                query = query.filter(Meta.__dict__[key].like(value))
             else:
-                query = query.filter(Meta.__dict__[key]==value)
+                query = query.filter(Meta.__dict__[key] == value)
 
         return query
 
