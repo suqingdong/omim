@@ -57,8 +57,6 @@ Commands:
 
 > update the database according to the file mim2gene.txt
 
-> *The method uses web scraping technology, which may lead to IP blocking. Please use it with caution or consider using proxy IPs.*
-
 ```
 omim update
 ```
@@ -431,6 +429,4 @@ print(item.as_dict)
 
 ---
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=suqingdong/pypubmed&type=Date)](https://star-history.com/#suqingdong/omim&Date)
+> This project is designed to support academic research, education, and personal interest. It is not intended for commercial use.
